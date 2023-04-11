@@ -7,3 +7,10 @@ export type Day = {
   hoursIdle: number;
   date: number;
 };
+
+export type Task = {
+  name: string;
+  startDate: number;
+  endDate: number;
+  numberOfHours: number;
+};

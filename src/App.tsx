@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import Calendar from './components/Calendar';
+import TaskContextProvider from './context/TaskContext';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <Calendar />
+      <TaskContextProvider>
+        <Calendar />
+      </TaskContextProvider>
     </div>
   );
 }
