@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+#calendar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.day {
+  background-color: beige;
+  border: solid 1px black;
+  min-height: 6rem;
+
+  .weekend {
+    background-color: lightgrey;
+  }
+
+  .day-title {
+    padding: 1rem;
+  }
+}
+
+.task {
+  --task-offset: 0.5rem;
+  background-color: green;
+  color: white;
+  min-height: 1.3rem;
+  padding: 0.1rem 0.3rem;
+  margin: -1px;
+
+  .start {
+    margin-left: var(--task-offset);
+  }
+
+  .end {
+    margin-right: var(--task-offset);
+  }
+}
+
+#add-new-task {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  button {
+    align-self: flex-start;
+  }
+}
+
+.responsive-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .responsive-content-main {
+    flex-basis: 50rem;
+    flex-grow: 9999;
+  }
+
+  .responsive-content-sidebar {
+    flex-basis: 20rem;
+    background-color: #0003;
+    flex-grow: 1;
+  }
+}
