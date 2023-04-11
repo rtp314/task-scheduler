@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { DAYS, Day } from '../types';
 import DayCell from './Day';
+import { useTasks } from '../context/TaskContext';
+import Task from './Task';
 
 type CalendarProps = {};
 
@@ -19,10 +21,18 @@ function generateDays(numberOfDays = 35): Day[] {
 
 export default function Calendar({}: CalendarProps) {
   const [days, setDays] = useState(generateDays());
+  const { tasks } = useTasks();
+
+  const tasksByDay = days.map(day => tasks.filter(task => task.startDate <= day.date && task.endDate >= day.date));
+
   return (
     <div id="calendar">
       {days.map((day, i) => (
-        <DayCell key={i} day={day} />
+        <DayCell key={i} day={day}>
+          {tasksByDay[i].map(task => (
+            <Task key={task.name} task={task} date={day.date} />
+          ))}
+        </DayCell>
       ))}
     </div>
   );

@@ -41,11 +41,11 @@ h6 {
   padding: 0.1rem 0.3rem;
   margin: -1px;
 
-  .start {
+  &.start {
     margin-left: var(--task-offset);
   }
 
-  .end {
+  &.end {
     margin-right: var(--task-offset);
   }
 }

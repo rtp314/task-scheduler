@@ -7,9 +7,10 @@ type TaskContextType = {
 };
 
 const TaskContext = createContext<TaskContextType | null>(null);
+const testTask = { name: 'taskOne', startDate: 3, endDate: 4, numberOfHours: 4 };
 
 export default function TaskContextProvider(props: React.PropsWithChildren) {
-  const [tasks, setTasks] = useState<Task[]>([{ name: 'taskOne', startDate: 3, endDate: 4, numberOfHours: 4 }]);
+  const [tasks, setTasks] = useState<Task[]>([testTask]);
 
   const addTask = (task: Task) => {
     setTasks(prev => [...prev, task]);

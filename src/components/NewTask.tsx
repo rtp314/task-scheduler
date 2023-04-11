@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTasks } from './TaskContext';
+import { useTasks } from '../context/TaskContext';
 import { Task } from '../types';
 
 type NewTaskProps = {};

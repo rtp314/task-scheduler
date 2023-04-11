@@ -3,14 +3,12 @@ import { Day } from '../types';
 
 type DayProps = {
   day: Day;
+  children: React.ReactNode;
 };
 
-export default function Day({ day }: DayProps) {
+export default function Day({ day, children }: DayProps) {
   const { dayOfWeekIndex, dayOfWeek, date } = day;
   const isWeekend = dayOfWeekIndex === 0 || dayOfWeekIndex === 6;
-
-  const { tasks } = useTasks();
-  const thisDaysTasks = tasks.filter(task => task.startDate <= date && task.endDate >= date);
 
   return (
     <div className={`day ${isWeekend ? 'weekend' : ''}`}>
@@ -18,16 +16,7 @@ export default function Day({ day }: DayProps) {
         <h3>{date}</h3>
         {dayOfWeek}
       </div>
-      <div className="day-tasks">
-        {thisDaysTasks.map(task => (
-          <div
-            key={`${task.name}${task.startDate}`}
-            className={`task ${task.startDate === date ? 'start' : ''} ${task.endDate === date ? 'end' : ''}`}
-          >
-            {task.startDate === date && task.name}
-          </div>
-        ))}
-      </div>
+      <div className="day-tasks">{children}</div>
     </div>
   );
 }

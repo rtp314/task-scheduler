@@ -14,3 +14,8 @@ export type Task = {
   endDate: number;
   numberOfHours: number;
 };
+
+// export type Task = TaskInitialiser & {
+//   elements: Element[];
+//   position: number;
+// };
