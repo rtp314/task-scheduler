@@ -28,11 +28,7 @@ export default function Calendar({}: CalendarProps) {
   return (
     <div id="calendar">
       {days.map((day, i) => (
-        <DayCell key={i} day={day}>
-          {tasksByDay[i].map(task => (
-            <Task key={task.name} task={task} date={day.date} />
-          ))}
-        </DayCell>
+        <DayCell key={i} day={day} tasks={tasksByDay[i]} />
       ))}
     </div>
   );

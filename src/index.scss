@@ -33,13 +33,21 @@ h6 {
   }
 }
 
+.day-tasks {
+  position: relative;
+}
+
+.task-slot {
+  height: 1.3rem;
+  margin: 0.1rem -1px;
+}
+
 .task {
   --task-offset: 0.5rem;
   background-color: green;
   color: white;
-  min-height: 1.3rem;
   padding: 0.1rem 0.3rem;
-  margin: -1px;
+  height: 100%;
 
   &.start {
     margin-left: var(--task-offset);

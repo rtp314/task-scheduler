@@ -13,6 +13,8 @@ export type Task = {
   startDate: number;
   endDate: number;
   numberOfHours: number;
+  highlight?: boolean;
+  position: number;
 };
 
 // export type Task = TaskInitialiser & {

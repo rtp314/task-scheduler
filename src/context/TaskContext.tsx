@@ -7,13 +7,25 @@ type TaskContextType = {
 };
 
 const TaskContext = createContext<TaskContextType | null>(null);
-const testTask = { name: 'taskOne', startDate: 3, endDate: 4, numberOfHours: 4 };
+const testTask1 = { name: 'Task One', startDate: 3, endDate: 4, numberOfHours: 4, position: 0 };
+const testTask2 = { name: 'Task Two', startDate: 4, endDate: 7, numberOfHours: 4, position: 1 };
 
 export default function TaskContextProvider(props: React.PropsWithChildren) {
-  const [tasks, setTasks] = useState<Task[]>([testTask]);
+  const [tasks, setTasks] = useState<Task[]>([testTask1, testTask2]);
 
-  const addTask = (task: Task) => {
-    setTasks(prev => [...prev, task]);
+  const addTask = (newTask: Task) => {
+    setTasks(prev => {
+      const tasksOnSameDay = prev.filter(
+        task => task.startDate <= newTask.startDate || task.endDate >= newTask.startDate,
+      );
+      let newTaskPosition = 0;
+      if (tasksOnSameDay.length !== 0) {
+        tasksOnSameDay.forEach(task => {
+          if (task.position && task.position >= newTaskPosition) newTaskPosition = task.position + 1;
+        });
+      }
+      return [...prev, { ...newTask, position: newTaskPosition }];
+    });
   };
 
   const contextValue = { tasks, addTask };
