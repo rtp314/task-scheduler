@@ -1,3 +1,4 @@
+import { useSelection } from '../context/SelectionContext';
 import { useTasks } from '../context/TaskContext';
 import { Task } from '../types';
 
@@ -8,9 +9,12 @@ type TaskProps = {
 
 export default function Task({ task, date }: TaskProps) {
   const { toggleHighlightTask } = useTasks();
+  const { setSelectedTask } = useSelection();
 
-  function handleClick() {
+  function handleClick(event: React.MouseEvent) {
+    event.stopPropagation();
     toggleHighlightTask(task.id);
+    setSelectedTask(task);
   }
 
   return (
