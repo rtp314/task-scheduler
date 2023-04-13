@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useTasks } from '../context/TaskContext';
-import { Task } from '../types';
+import { Task, TaskInitialiser } from '../types';
 
 type NewTaskProps = {};
 
-const defaultTaskValues: Task = {
+const defaultTaskValues: TaskInitialiser = {
   name: '',
   startDate: 1,
   endDate: 1,

@@ -8,11 +8,15 @@ export type Day = {
   date: number;
 };
 
-export type Task = {
+export type TaskInitialiser = {
   name: string;
   startDate: number;
   endDate: number;
   numberOfHours: number;
+};
+
+export type Task = TaskInitialiser & {
+  id: string;
   highlight?: boolean;
   position: number;
 };

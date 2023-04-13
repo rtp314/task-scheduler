@@ -1,34 +1,49 @@
 import { createContext, useContext, useState } from 'react';
-import { Task } from '../types';
+import { Task, TaskInitialiser } from '../types';
 
 type TaskContextType = {
   tasks: Task[];
-  addTask: (task: Task) => void;
+  addTask: (task: TaskInitialiser) => void;
+  toggleHighlightTask: (id: string) => void;
 };
 
 const TaskContext = createContext<TaskContextType | null>(null);
-const testTask1 = { name: 'Task One', startDate: 3, endDate: 4, numberOfHours: 4, position: 0 };
-const testTask2 = { name: 'Task Two', startDate: 4, endDate: 7, numberOfHours: 4, position: 1 };
+const testTask1 = { name: 'Task One', startDate: 3, endDate: 4, numberOfHours: 4, position: 0, id: '1234' };
+const testTask2 = { name: 'Task Two', startDate: 4, endDate: 7, numberOfHours: 4, position: 1, id: '4321' };
 
 export default function TaskContextProvider(props: React.PropsWithChildren) {
   const [tasks, setTasks] = useState<Task[]>([testTask1, testTask2]);
 
-  const addTask = (newTask: Task) => {
+  const addTask = (newTask: TaskInitialiser) => {
     setTasks(prev => {
-      const tasksOnSameDay = prev.filter(
-        task => task.startDate <= newTask.startDate || task.endDate >= newTask.startDate,
-      );
+      const taskId = crypto.randomUUID();
+      const tasksOnSameDay = prev
+        .filter(task => task.startDate <= newTask.startDate && task.endDate >= newTask.startDate)
+        .sort((a, b) => a.position - b.position);
+
       let newTaskPosition = 0;
+
+      // find the first unassigned position among tasksOnSameDay
       if (tasksOnSameDay.length !== 0) {
-        tasksOnSameDay.forEach(task => {
-          if (task.position && task.position >= newTaskPosition) newTaskPosition = task.position + 1;
-        });
+        const highestTaskPosition = tasksOnSameDay.at(-1)!.position;
+        for (let i = 0; i <= highestTaskPosition + 1; i++) {
+          if (i > highestTaskPosition || tasksOnSameDay[i].position > i) {
+            newTaskPosition = i;
+            break;
+          }
+        }
       }
-      return [...prev, { ...newTask, position: newTaskPosition }];
+      return [...prev, { ...newTask, position: newTaskPosition, id: taskId }];
     });
   };
 
-  const contextValue = { tasks, addTask };
+  const toggleHighlightTask = (id: string) => {
+    setTasks(prev => {
+      return prev.map(task => (task.id === id ? { ...task, highlight: task.highlight ? false : true } : task));
+    });
+  };
+
+  const contextValue = { tasks, addTask, toggleHighlightTask };
 
   return <TaskContext.Provider value={contextValue}>{props.children}</TaskContext.Provider>;
 }
