@@ -31,6 +31,10 @@ h6 {
   .day-title {
     padding: 1rem;
   }
+
+  &.highlight {
+    border: solid 1px yellow;
+  }
 }
 
 .day-tasks {

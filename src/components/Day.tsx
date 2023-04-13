@@ -9,7 +9,7 @@ type DayProps = {
 };
 
 export default function Day({ day, tasks }: DayProps) {
-  const { setSelectedDay } = useSelection();
+  const { selectedDay, setSelectedDay } = useSelection();
   const { dayOfWeekIndex, dayOfWeek, date } = day;
   const isWeekend = dayOfWeekIndex === 0 || dayOfWeekIndex === 6;
 
@@ -25,7 +25,10 @@ export default function Day({ day, tasks }: DayProps) {
   }
 
   return (
-    <div className={`day ${isWeekend ? 'weekend' : ''}`} onClick={handleClick}>
+    <div
+      className={`day ${isWeekend ? 'weekend' : ''} ${date === selectedDay?.date ? 'highlight' : ''}`}
+      onClick={handleClick}
+    >
       <div className="day-title">
         <h3>{date}</h3>
         {dayOfWeek}
