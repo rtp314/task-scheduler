@@ -4,7 +4,6 @@ import { Task, TaskInitialiser } from '../types';
 type TaskContextType = {
   tasks: Task[];
   addTask: (task: TaskInitialiser) => void;
-  toggleHighlightTask: (id: string) => void;
 };
 
 const TaskContext = createContext<TaskContextType | null>(null);
@@ -37,13 +36,7 @@ export default function TaskContextProvider(props: React.PropsWithChildren) {
     });
   };
 
-  const toggleHighlightTask = (id: string) => {
-    setTasks(prev => {
-      return prev.map(task => (task.id === id ? { ...task, highlight: task.highlight ? false : true } : task));
-    });
-  };
-
-  const contextValue = { tasks, addTask, toggleHighlightTask };
+  const contextValue = { tasks, addTask };
 
   return <TaskContext.Provider value={contextValue}>{props.children}</TaskContext.Provider>;
 }

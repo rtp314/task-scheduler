@@ -17,7 +17,6 @@ export type TaskInitialiser = {
 
 export type Task = TaskInitialiser & {
   id: string;
-  highlight?: boolean;
   position: number;
 };
 
